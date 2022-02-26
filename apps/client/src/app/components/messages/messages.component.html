@@ -1,0 +1,13 @@
+<div id="messages" class="container">
+<div *ngIf="getMessage()" class="alert alert-success" role="alert">
+    {{ getMessage() }}
+</div>
+<form [formGroup]="formGroup">
+    <div class="mb-3">
+      <label for="message" class="form-label">Secret Message</label>
+      <input type="input" class="form-control" id="message" aria-describedby="message" formControlName="messageInput" name="messageInput">
+      <div id="messageHelp" class="form-text">Message will be encrypted</div>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="postMessage()">Submit</button>
+  </form>
+</div>

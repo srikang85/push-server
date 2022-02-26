@@ -8,7 +8,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/push-server",
-        "main": "apps/push-server/src/main.ts",
+        "main": "apps/push-server/src/main.js",
         "tsConfig": "apps/push-server/tsconfig.app.json",
         "assets": ["apps/push-server/src/assets"]
       },

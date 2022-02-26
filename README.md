@@ -9,5 +9,7 @@
  nx g @nrwl/express:app push-server
  nx g @nrwl/angular:app client
 
+## How to add Angular component to project
+npx nx generate @nrwl/angular:component components/messages --project=client
 ## How to run both client and server
 npx nx run-many --parallel --target=serve --projects=push-server,client
