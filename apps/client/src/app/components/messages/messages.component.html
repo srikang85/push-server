@@ -1,13 +1,26 @@
 <div id="messages" class="container">
-<div *ngIf="getMessage()" class="alert alert-success" role="alert">
-    {{ getMessage() }}
-</div>
-<form [formGroup]="formGroup">
-    <div class="mb-3">
-      <label for="message" class="form-label">Secret Message</label>
-      <input type="input" class="form-control" id="message" aria-describedby="message" formControlName="messageInput" name="messageInput">
-      <div id="messageHelp" class="form-text">Message will be encrypted</div>
+    <pre>Id: {{ getUUID() }}</pre>
+    <div class="row">
+<div class="col-6">
+    <div *ngIf="getSuccessMessage()" class="alert alert-success" role="alert">
+        {{ getSuccessMessage() }}
     </div>
-    <button type="submit" class="btn btn-primary" (click)="postMessage()">Submit</button>
-  </form>
+    <form [formGroup]="formGroup">
+        <div class="mb-3">
+          <label for="clientId" class="form-label">Enter other ID</label>
+          <input type="input" class="form-control" id="clientId" aria-describedby="message" formControlName="clientId" name="clientId">
+        </div>
+        <div class="mb-3">
+            <label for="message" class="form-label">Secret Message</label>
+            <input type="input" class="form-control" id="message" aria-describedby="message" formControlName="messageInput" name="messageInput">
+          </div>
+        <button type="submit" class="btn btn-primary" (click)="postMessage()">Submit</button>
+    </form>
+</div>
+<div class="col-6">
+    <div class="row" *ngFor="let message of getMessage()">
+    <p>{{  message }}</p>
+    </div>
+</div>
+</div>
 </div>

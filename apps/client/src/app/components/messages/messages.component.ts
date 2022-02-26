@@ -1,4 +1,7 @@
-import { MessageService } from './message.service';
+import { UUIDService } from './../../shared/uuid.service';
+import { secretURL } from './../../shared/url.service';
+import { SecretService } from './../../shared/secretService';
+import { MessageService } from './../../shared/message.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
@@ -11,30 +14,43 @@ export class MessagesComponent implements OnInit {
 
   public formGroup: FormGroup;
   private messageController: AbstractControl;
-  private dataPeristed = false;
+  private clientIdController: AbstractControl;
 
   constructor(private messageService: MessageService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private secretSerice: SecretService,
+    private uuidService: UUIDService) {
     this.formGroup = this.formBuilder.group({
-      messageInput: ['']
+      messageInput: [''],
+      clientId: ['']
     });
     this.messageController = this.formGroup.get('messageInput') as FormControl;
+    this.clientIdController = this.formGroup.get('clientId') as FormControl;
+  }
+
+  getUUID(): string {
+    return this.uuidService.getUUID();
   }
 
   ngOnInit(): void {
+    this.secretSerice.setSecret();
     this.messageController.valueChanges.subscribe(text => {
-       this.messageService.setMessage('');
+       this.messageService.setSuccessMessage('');
     });
   }
-  getMessage(): string {
-    return this.messageService.getMessage()
+  getSuccessMessage(): string {
+    return this.messageService.getSuccessMessage()
   }
 
   postMessage(): void {
-    this.messageService.postMessage(this.messageController.value);
-    this.dataPeristed = true;
+    this.messageService.postMessage({
+      message: this.secretSerice.encrypt(this.messageController.value, this.clientIdController.value),
+      client: this.clientIdController.value,
+      timestamp: new Date().toString()
+    });
   }
 
-
-
+  getMessage(): string[] {
+    return this.messageService.getServerMessage();
+  }
 }
