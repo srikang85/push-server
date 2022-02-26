@@ -9,14 +9,12 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup } from '@angular/f
 })
 export class MessagesComponent implements OnInit {
 
-  private messageControl: FormControl;
   public formGroup: FormGroup;
   private messageController: AbstractControl;
-  //public result: string;
+  private dataPeristed = false;
 
   constructor(private messageService: MessageService,
     private formBuilder: FormBuilder) {
-    this.messageControl = new FormControl();
     this.formGroup = this.formBuilder.group({
       messageInput: ['']
     });
@@ -24,6 +22,9 @@ export class MessagesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.messageController.valueChanges.subscribe(text => {
+       this.messageService.setMessage('');
+    });
   }
   getMessage(): string {
     return this.messageService.getMessage()
@@ -31,6 +32,7 @@ export class MessagesComponent implements OnInit {
 
   postMessage(): void {
     this.messageService.postMessage(this.messageController.value);
+    this.dataPeristed = true;
   }
 
 

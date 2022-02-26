@@ -13,6 +13,9 @@ export class MessageService {
     getMessage(): string {
         return this.message;
     }
+    setMessage(message: string) {
+        this.message = message;
+    }
     postMessage(data: string) {
         console.log(data);
       this.http.post(messageURL, {
