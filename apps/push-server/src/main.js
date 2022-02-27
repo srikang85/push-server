@@ -17,7 +17,8 @@ import { SecretService } from './app/serices/secretService';
 const VERSION = '1.0';
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 messages(router, VERSION);
 secrets(router, VERSION);
 uuids(router, VERSION);
