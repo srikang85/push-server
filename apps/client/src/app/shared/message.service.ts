@@ -9,9 +9,10 @@ import { Injectable } from '@angular/core';
 export class MessageService {
     private message: string = '';
     private serverMessages: string[] = [];
-    private eventSource = new EventSource(messageURL);
+    private eventSource: EventSource = {} as EventSource;
     constructor(private http: HttpClient, private uuidService: UUIDService) {
         this.uuidService.fetchUUID().subscribe(res => {
+            this.eventSource = new EventSource(`${messageURL}/${this.uuidService.getUUID()}`);
             this.eventSource.addEventListener(this.uuidService.getUUID(), (event: any) => {
                 this.serverMessages.push(event.data);
                 console.log(event.data);

@@ -6,7 +6,7 @@ module.exports = function(router, VERSION) {
   
     const handleMessageCreation = function (req, res) {      
       const message = req.body;
-      MessageEmitter.emit('newMessage', message?.data);
+      MessageEmitter.emit(message?.data?.client, message?.data);
       res.status(200).send({
           success: true,
           message: 'Message Received'
@@ -18,19 +18,27 @@ module.exports = function(router, VERSION) {
             success: true,
             message: 'User successfully authenticated'
         };
+        const id = req.params?.id;
+        console.log(`Listeners ${id}`);
         setSSEHeader(res);
-        MessageEmitter.on('newMessage', (message) => {
-            //console.log('Receiver message from client ', typeof message);
+        MessageEmitter.on(id, (message) => {
+            console.log('Receiver message from client ', message);
             const clientId = message.client;
             const data = message.message;
             const decryptedMessage = SecretService.decrypt(data, clientId);
-            console.log(decryptedMessage);
+            if (decryptedMessage) {
+                message.message = `${message.message}::VERIFIED`;
+            } else {
+                message.message = `${message.message}::UNVERIFIED`;
+            }
             res.write(`event: ${clientId}\n`);
             res.write('retry: 10000\n')
             res.write(`data: ${JSON.stringify(message)}\n\n`);
         });
     };
     router.route(`/${VERSION}/messages/`)
-      .get(handleGetMessage)
       .post(handleMessageCreation);
+
+    router.route(`/${VERSION}/messages/:id`)
+      .get(handleGetMessage);
 }

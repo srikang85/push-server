@@ -50,7 +50,19 @@ export class MessagesComponent implements OnInit {
     });
   }
 
-  getMessage(): string[] {
-    return this.messageService.getServerMessage();
+  getMessage(): any[] {
+    return this.messageService.getServerMessage().map(item => {
+      let parsedData = JSON.parse(item);
+      let message = parsedData.message;
+      let client = parsedData.client;
+      let [data, status] = message.split('::VERIFIED');
+      if (status) {
+        status = 'VERIFIED';
+      } else {
+        status = 'UNVERIFIED';
+      }
+      data = this.secretSerice.decrypt(data, client);
+      return { data , status};
+    });
   }
 }

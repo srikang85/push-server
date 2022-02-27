@@ -23,4 +23,9 @@ export class SecretService {
     encrypt(data: string, clientId?: string): string {
       return CryptoJS.AES.encrypt(data, this.secretKey + clientId).toString()
     }
+    decrypt(data: string, clientId?: string): string {
+        const val = CryptoJS.AES.decrypt(data, this.secretKey + clientId)?.toString(CryptoJS.enc.Utf8);
+        console.log(val);
+        return val;
+      }
 }

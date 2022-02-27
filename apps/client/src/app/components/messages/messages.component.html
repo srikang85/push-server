@@ -1,26 +1,39 @@
 <div id="messages" class="container">
     <pre>Id: {{ getUUID() }}</pre>
     <div class="row">
-<div class="col-6">
-    <div *ngIf="getSuccessMessage()" class="alert alert-success" role="alert">
-        {{ getSuccessMessage() }}
-    </div>
-    <form [formGroup]="formGroup">
-        <div class="mb-3">
-          <label for="clientId" class="form-label">Enter other ID</label>
-          <input type="input" class="form-control" id="clientId" aria-describedby="message" formControlName="clientId" name="clientId">
+        <div class="col-6">
+            <div *ngIf="getSuccessMessage()" class="alert alert-success" role="alert">
+                {{ getSuccessMessage() }}
+            </div>
+            <form [formGroup]="formGroup">
+                <div class="mb-3">
+                    <label for="clientId" class="form-label">Enter other ID</label>
+                    <input type="input" class="form-control" id="clientId" aria-describedby="message"
+                        formControlName="clientId" name="clientId">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Secret Message</label>
+                    <input type="input" class="form-control" id="message" aria-describedby="message"
+                        formControlName="messageInput" name="messageInput">
+                </div>
+                <button type="submit" class="btn btn-primary" (click)="postMessage()">Submit</button>
+            </form>
         </div>
-        <div class="mb-3">
-            <label for="message" class="form-label">Secret Message</label>
-            <input type="input" class="form-control" id="message" aria-describedby="message" formControlName="messageInput" name="messageInput">
-          </div>
-        <button type="submit" class="btn btn-primary" (click)="postMessage()">Submit</button>
-    </form>
-</div>
-<div class="col-6">
-    <div class="row" *ngFor="let message of getMessage()">
-    <p>{{  message }}</p>
+        <div class="col-6 right">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Message</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <tr *ngFor="let message of getMessage()">
+                            <td> {{ message.data }} </td>
+                            <td>{{ message.status }} </td>
+                        </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-</div>
 </div>
