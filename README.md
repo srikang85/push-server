@@ -1,16 +1,4 @@
 # Push Server
-
-## Project Creation Steps
-- npx create-nx-workspace
-- cd push-server
-- npm install --save-dev @nrwl/angular
-- npm install --save-dev @nrwl/express
-- nx g @nrwl/express:app push-server
-- nx g @nrwl/angular:app client
-
-
-## How to add Angular component to project
-npx nx generate @nrwl/angular:component components/messages --project=client
 ## How to run both client and server
 - npx nx run-many --parallel --target=serve --projects=push-server,client
 
@@ -22,8 +10,19 @@ Connect to client using the below URL
 - Messages will be streamed to the other client instantly.
 
 ### Screen shots
-
 ![image](https://user-images.githubusercontent.com/13273593/155869129-a03fdcd8-83aa-4d4a-ad14-ea3855a0b469.png)
+
+## Project Creation Steps
+- npx create-nx-workspace
+- cd push-server
+- npm install --save-dev @nrwl/angular
+- npm install --save-dev @nrwl/express
+- nx g @nrwl/express:app push-server
+- nx g @nrwl/angular:app client
+
+## How to add Angular component to project
+npx nx generate @nrwl/angular:component components/messages --project=client
+
 
 
 
