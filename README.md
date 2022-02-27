@@ -7,7 +7,7 @@
 Connect to client using the below URL
 - http://localhost:4200/messages
 - Each client will be assigned an unique id by the server.
-- Use the others client id to send the message to the client
+- Use client id from other tab/window to send message
 - Messages will be streamed to the other client instantly.
 
 ### Screen shots
