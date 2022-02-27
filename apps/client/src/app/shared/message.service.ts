@@ -18,10 +18,6 @@ export class MessageService {
                 console.log(event.data);
               });            
         });
-        // this.eventSource.addEventListener(this.uuidService.getUUID(), (event: any) => {
-        //   this.serverMessages.push(event.data);
-        //   console.log(event.data);
-        // });
     }
 
     getServerMessage(): string[] {

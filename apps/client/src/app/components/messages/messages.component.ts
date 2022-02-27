@@ -56,7 +56,7 @@ export class MessagesComponent implements OnInit {
       let message = parsedData.message;
       let client = parsedData.client;
       let [data, status] = message.split('::VERIFIED');
-      if (status) {
+      if (!status) {
         status = 'VERIFIED';
       } else {
         status = 'UNVERIFIED';
