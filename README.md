@@ -21,6 +21,12 @@ Connect to client using the below URL
 - Use the others client id to send the message to the client
 - Messages will be streamed to the other client instantly.
 
+### Screen shots
+
+![image](https://user-images.githubusercontent.com/13273593/155869129-a03fdcd8-83aa-4d4a-ad14-ea3855a0b469.png)
+
+
+
 
 
 
