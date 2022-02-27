@@ -1,5 +1,6 @@
 # Push Server
 ## How to run both client and server
+- npm install
 - npx nx run-many --parallel --target=serve --projects=push-server,client
 
 ## Client
