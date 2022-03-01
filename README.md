@@ -1,4 +1,7 @@
 # Push Server
+## Prerequisite
+- Install Redis server and run it on default port.
+
 ## How to run both client and server
 - npm install
 - npx nx run-many --parallel --target=serve --projects=push-server,client
