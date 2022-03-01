@@ -2,11 +2,14 @@ import { setSSEHeader } from './SSEUtil';
 import { MessageEmitter } from './../serices/messageService';
 import { ESRCH } from 'constants';
 import { SecretService } from './../serices/secretService';
+import { redisClient } from './../serices/redisClient';
+
 module.exports = function(router, VERSION) {
   
     const handleMessageCreation = function (req, res) {      
       const message = req.body;
-      MessageEmitter.emit(message?.data?.client, message?.data);
+      redisClient.getClient().publish(message?.data?.client, JSON.stringify(message?.data));
+      //MessageEmitter.emit(message?.data?.client, message?.data);
       res.status(200).send({
           success: true,
           message: 'Message Received'
@@ -21,7 +24,9 @@ module.exports = function(router, VERSION) {
         const id = req.params?.id;
         console.log(`Listeners ${id}`);
         setSSEHeader(res);
-        MessageEmitter.on(id, (message) => {
+        redisClient.getSubscriber().subscribe(id, (subData) => {
+        // MessageEmitter.on(id, (message) => {
+            const message = JSON.parse(subData);
             console.log('Receiver message from client ', message);
             const clientId = message.client;
             const data = message.message;
