@@ -1,6 +1,6 @@
 # Push Server
 ## Prerequisite
-- Install Redis server and run it on default port.
+- Install Redis server and run it on default port
 
 ## How to run both client and server
 - npm install
